@@ -1,101 +1,62 @@
 #include<iostream>
-#include "string.h"
-#include"skmp.h"
-#include"KMP.h"
-#include"array.h"
-#include"matrix.h"
+#include<vector>
+#include"binarytree.h"
+#include"Qaftertraversal.h"
 using namespace std;
-
-//测试test1创建字符串输入输出
-/*
-int main() {
-    myString s1;
-    s1.createstring();
-    cout << "s1:";
-    s1.display();
-    cout << endl;
-    myString s2;
-    s2.createstring();
-    cout << "s2:";
-    s2.display();
-    cout << endl;  
-    return 0;
-}
-*/
-
-//测试test2naivekmp算法
 /*
 int main(){
-    myString s;
-    s.createstring();
-    myString t;
-    t.createstring();
-    int pos = 0;      //这里记录模式串首字母在主串中的位置，主串位置从0开始
-    naivestrmatch match;
-    pos = match.Nstrmatch(s,t);
-    cout << "result is" << " " << pos << endl;
-    return 0;
-}
- */   
-
-//测试KMP算法
-/*
-int main(){
-    myString s;
-    s.createstring();
-    myString t;
-    t.createstring();
-    int pos = 0;      //这里记录模式串首字母在主串中的位置，主串位置从0开始
-    KMPmatch match;
-    pos = match.KMPSearch(s,t);
-    cout << "result is" << " " << pos << endl;
+    //测试输入前序数组，如果数组元素为#，则表示该节点为空
+    vector<char> preorder;
+    cout<<"Enter preorder traversal of binary tree (0 for null nodes), end with $:"<<endl;
+    while(true){
+        char val;
+        cin>>val;
+        if(val == '$') break;
+        preorder.push_back(val);
+    }
+    binarytree tree(preorder);
+    //输入前序，中序和后序遍历结果
+    tree.coutbinarytree(tree.root);
     return 0;
 }
     */
-
-//测试数组顺序存储功能实现
-/*
+   /*
 int main(){
-    myarray arr;
-    arr.createarray();
-    int index,value;
-    cout << "Enter index to get value:" << endl;
-    cin >> index;
-    if(arr.Value(index,value)){
-        cout << "Value at index " << index << " is " << value << endl;
-    } else {
-        cout << "Index out of bounds." << endl;
+    //计算叶子节点数目和树的深度
+    vector<char> preorder;
+    cout<<"Enter preorder traversal of binary tree (0 for null nodes), end with $:"<<endl;
+    while(true){
+        char val;
+        cin>>val;
+        if(val == '$') break;
+        preorder.push_back(val);
     }
-
-    cout << "Enter index to assign value:" << endl;
-    cin >> index;
-    cout << "Enter value to assign:" << endl;
-    cin >> value;
-    if(arr.Assign(index,value)){
-        cout << "Assigned value " << value << " at index " << index << endl;
-        arr.display();
-    } else {
-        cout << "Index out of bounds." << endl;
-    }
+    binarytree tree(preorder);
+    int leafNum = tree.computeLeafNum(tree.root);
+    int depth = tree.computeDepth(tree.root);
+    cout<<"Number of leaf nodes: "<<leafNum<<endl;
+    cout<<"Depth of the tree: "<<depth<<endl;
     return 0;
 }
     */
-
-    //测试稀疏矩阵两种转置方法：三元组法和十字链表法
+//已知前序中序遍历求后续遍历
     int main(){
-        mysparematrix sm;
-        sm.display();
-        cout << "Creating sparse matrix using triple representation:" << endl;
-        sm.createMatrix();
-        mysparematrix tsm = sm.tanspose();
-        tsm.display();
-
-        linkmatrix lm;
-        lm.initlinkmatrix();
-        cout << "Creating sparse matrix using linked list representation:" << endl;
-        lm.createMatrix();
-        linkmatrix tlm = lm.transpose();
-        tlm.display();
-
-        return 0;
+    vector<char> preorder, inorder;
+    cout<<"Enter preorder traversal of binary tree and inorder traversal, end with $:"<<endl;
+    while(true){
+        char val;
+        cin>>val;
+        if(val == '$') break;
+        preorder.push_back(val);
     }
+    while(true){
+        char val;
+        cin>>val;
+        if(val == '$') break;
+        inorder.push_back(val);
+    }
+    Qaftertraversal getpost;
+    cout << "Postorder traversal: ";
+    getpost.aftertraversal(preorder, inorder);
+    return 0; 
+}
